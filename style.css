@@ -13,7 +13,6 @@ body {
 
 /* HERO */
 .hero {
-  .hero {
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: #fff;
   text-align: center;
@@ -31,7 +30,6 @@ body {
 }
 
 .btn {
-  .btn {
   background: #00c6ff;
   color: #003344;
   padding: 12px 25px;
@@ -115,6 +113,7 @@ footer {
   color: #fff;
   margin-top: 40px;
 }
+
 /* SERVICES */
 .services ul {
   list-style: none;
@@ -132,6 +131,7 @@ footer {
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   font-weight: bold;
 }
+
 /* WHATSAPP BUTTON */
 .whatsapp-btn {
   position: fixed;
@@ -146,6 +146,7 @@ footer {
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   z-index: 999;
 }
+
 /* PRICING */
 .pricing {
   text-align: center;
@@ -173,6 +174,7 @@ footer {
   font-size: 0.9rem;
   color: #555;
 }
+
 .project-card img {
   width: 100%;
   border-radius: 8px;
