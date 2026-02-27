@@ -174,3 +174,34 @@ footer {
   font-size: 0.9rem;
   color: #555;
 }
+.project-links {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn {
+  padding: 8px 14px;
+  background-color: #0077cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.btn:hover {
+  background-color: #005fa3;
+}
+
+.btn.outline {
+  background-color: transparent;
+  color: #0077cc;
+  border: 2px solid #0077cc;
+}
+
+.btn.outline:hover {
+  background-color: #0077cc;
+  color: white;
+}
