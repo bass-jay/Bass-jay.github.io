@@ -13,7 +13,8 @@ body {
 
 /* HERO */
 .hero {
-  background: linear-gradient(135deg, #111, #333);
+  .hero {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: #fff;
   text-align: center;
   padding: 80px 20px;
@@ -30,8 +31,9 @@ body {
 }
 
 .btn {
-  background: #ff9800;
-  color: #111;
+  .btn {
+  background: #00c6ff;
+  color: #003344;
   padding: 12px 25px;
   text-decoration: none;
   border-radius: 25px;
@@ -79,7 +81,7 @@ h2 {
 .links a {
   text-decoration: none;
   margin-right: 15px;
-  color: #ff9800;
+  color: #0077cc;
   font-weight: bold;
 }
 
