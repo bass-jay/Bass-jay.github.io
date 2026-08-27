@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bass Jay — Web Developer</title>
+<title>Bass Jay — Full Stack Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -291,7 +291,43 @@
   }
   .price-card p{font-size:14px; color:var(--text-dim);}
   .price-card.featured p{color:var(--text-on-ink-dim);}
+  .price-card{cursor:pointer; transition:transform .15s ease, box-shadow .15s ease;}
+  .price-card:hover{transform:translateY(-3px); box-shadow:0 12px 28px -12px rgba(0,0,0,0.25);}
+  .price-card.featured:hover{transform:translateY(-11px);}
+  .price-more{
+    display:inline-block; margin-top:14px;
+    font-family:var(--font-mono); font-size:12px; font-weight:600;
+    color:var(--blue-dim);
+  }
+  .price-card.featured .price-more{color:var(--amber);}
   @media(max-width:760px){ .price-grid{grid-template-columns:1fr;} .price-card.featured{transform:none;} }
+
+  /* ---------- Pricing modal ---------- */
+  .modal-overlay{
+    display:none; position:fixed; inset:0; z-index:100;
+    background:rgba(10,13,16,0.72); backdrop-filter:blur(4px);
+    padding:24px; overflow-y:auto;
+  }
+  .modal-overlay.open{display:flex; align-items:flex-start; justify-content:center;}
+  .modal{
+    width:100%; max-width:520px; margin-top:40px;
+    box-shadow:0 40px 90px -20px rgba(0,0,0,0.6);
+  }
+  .modal .chrome-bar{position:relative;}
+  .modal-close{
+    background:none; border:none; color:var(--text-on-ink-dim);
+    font-size:16px; cursor:pointer; padding:2px 6px; border-radius:4px; flex-shrink:0;
+  }
+  .modal-close:hover{color:var(--text-on-ink); background:rgba(255,255,255,0.06);}
+  .modal-body{padding:28px 26px 30px; background:var(--paper);}
+  .modal-body h3{font-family:var(--font-display); font-size:24px; margin:6px 0 14px;}
+  .modal-desc{color:var(--text-dim); font-size:15px; margin-bottom:6px;}
+  .modal-includes-label{font-family:var(--font-mono); font-size:12px; color:var(--blue-dim); margin:18px 0 10px; text-transform:uppercase; letter-spacing:.04em;}
+  .modal-list{list-style:none; display:flex; flex-direction:column; gap:9px; margin-bottom:24px;}
+  .modal-list li{font-size:14.5px; color:var(--text); padding-left:22px; position:relative;}
+  .modal-list li::before{content:"✓"; position:absolute; left:0; color:var(--blue); font-weight:700;}
+  .modal-list li.carry::before{color:var(--amber);}
+  .modal-cta{display:block; text-align:center;}
 
   /* ---------- Skills ---------- */
   .skills-row{display:flex; gap:10px; flex-wrap:wrap;}
@@ -337,7 +373,7 @@
   <div class="wrap hero-inner">
     <span class="eyebrow"><span class="pulse"></span>AVAILABLE FOR NEW PROJECTS</span>
     <h1>Websites that turn<br>visitors into <span class="accent">customers.</span></h1>
-    <p class="tagline">Hi, I'm <span>Bass Jay</span> — a frontend &amp; WordPress developer helping businesses launch fast, modern, conversion-focused websites.</p>
+    <p class="tagline">Hi, I'm <span>Bass Jay</span> — a full stack developer helping businesses launch fast, modern, conversion-focused websites.</p>
     <div class="hero-ctas">
       <a href="#work" class="btn btn-primary">View My Work</a>
       <a href="#contact" class="btn btn-outline">Let's Talk</a>
@@ -350,9 +386,9 @@
       </div>
       <div class="chrome-body">
         <div class="l1">$ whoami</div>
-        <div class="l2">bass-jay — web developer, Lagos 🇳🇬</div>
+        <div class="l2">bass-jay — full stack developer</div>
         <div class="l1">$ stack --list</div>
-        <div class="l3">HTML <span>·</span> CSS <span>·</span> WordPress <span>·</span> Git &amp; GitHub <span>·</span> SEO</div>
+        <div class="l3">HTML <span>·</span> C++ <span>·</span> JavaScript <span>·</span> WordPress <span>·</span> Git</div>
       </div>
     </div>
   </div>
@@ -370,9 +406,9 @@
         <p>I help businesses and entrepreneurs create modern, responsive, and conversion-focused websites. Whether it's a company website, landing page, or WordPress build, I turn ideas into digital products that attract customers.</p>
         <p>I care about the details that actually move the needle: fast load times, clean structure, and pages built to get visitors to act — not just look good.</p>
         <div class="about-stats">
-          <div class="stat"><b>HTML/CSS</b><span>CORE STACK</span></div>
+          <div class="stat"><b>HTML/JS</b><span>CORE STACK</span></div>
           <div class="stat"><b>WordPress</b><span>SPECIALTY</span></div>
-          <div class="stat"><b>SEO-Ready</b><span>ON EVERY BUILD</span></div>
+          <div class="stat"><b>C++</b><span>ALSO IN THE TOOLBOX</span></div>
         </div>
       </div>
     </div>
@@ -471,25 +507,47 @@
       <h2>Simple, transparent packages</h2>
     </div>
     <div class="price-grid">
-      <div class="price-card">
+      <div class="price-card" onclick="openPricing('basic')" role="button" tabindex="0">
         <h3>Basic Website</h3>
         <div class="price-tag">₦150,000 – ₦250,000</div>
         <p>Simple business or personal website — perfect for getting started online.</p>
+        <span class="price-more">See what's included →</span>
       </div>
-      <div class="price-card featured">
+      <div class="price-card featured" onclick="openPricing('standard')" role="button" tabindex="0">
         <span class="featured-badge">MOST POPULAR</span>
         <h3>Standard Business Website</h3>
         <div class="price-tag">₦300,000 – ₦500,000</div>
         <p>Multi-page WordPress website with the pages and features a growing business needs.</p>
+        <span class="price-more">See what's included →</span>
       </div>
-      <div class="price-card">
+      <div class="price-card" onclick="openPricing('premium')" role="button" tabindex="0">
         <h3>Premium Website</h3>
         <div class="price-tag">₦600,000+</div>
         <p>Advanced design and custom features for businesses that want the full package.</p>
+        <span class="price-more">See what's included →</span>
       </div>
     </div>
   </div>
 </section>
+
+<div class="modal-overlay" id="pricingModal" onclick="if(event.target===this) closePricing()">
+  <div class="modal chrome">
+    <div class="chrome-bar">
+      <div class="chrome-dots"><span></span><span></span><span></span></div>
+      <div class="chrome-url" id="modalUrl">pricing/basic</div>
+      <button class="modal-close" onclick="closePricing()" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <span class="kicker" id="modalKicker">package</span>
+      <h3 id="modalTitle">Basic Website</h3>
+      <div class="price-tag" id="modalPrice">₦150,000 – ₦250,000</div>
+      <p id="modalDesc" class="modal-desc"></p>
+      <p id="modalIncludesLabel" class="modal-includes-label"></p>
+      <ul class="modal-list" id="modalList"></ul>
+      <a href="#contact" class="btn btn-primary modal-cta" onclick="closePricing()">Get started</a>
+    </div>
+  </div>
+</div>
 
 <section>
   <div class="wrap">
@@ -499,10 +557,10 @@
     </div>
     <div class="skills-row">
       <span class="skill-chip">HTML</span>
-      <span class="skill-chip">CSS</span>
+      <span class="skill-chip">C++</span>
+      <span class="skill-chip">JavaScript</span>
       <span class="skill-chip">WordPress</span>
-      <span class="skill-chip">Git &amp; GitHub</span>
-      <span class="skill-chip">Basic SEO</span>
+      <span class="skill-chip">Git</span>
     </div>
   </div>
 </section>
@@ -526,5 +584,102 @@
   © 2026 Bass Jay. Built with HTML &amp; CSS.
 </footer>
 
+<script>
+const pricingData = {
+  basic: {
+    title: "Basic Website",
+    price: "₦150,000 – ₦250,000",
+    desc: "For individuals, small businesses and simple websites.",
+    includesLabel: "What's included",
+    items: [
+      "1–5 pages",
+      "Responsive/mobile-friendly design",
+      "Professional homepage",
+      "About page",
+      "Services/Products page",
+      "Contact page",
+      "Contact form",
+      "WhatsApp integration",
+      "Social media integration",
+      "Google Maps",
+      "Basic SEO",
+      "SSL/security setup",
+      "Basic speed optimization"
+    ],
+    carryFrom: null
+  },
+  standard: {
+    title: "Standard Business Website",
+    price: "₦300,000 – ₦500,000",
+    desc: "For growing businesses that need a complete professional website.",
+    includesLabel: "Everything in Basic, plus",
+    items: [
+      "5–10+ pages",
+      "Custom WordPress design",
+      "Blog/News section",
+      "Portfolio/Gallery",
+      "Testimonials/Reviews",
+      "Advanced contact forms",
+      "Newsletter/email integration",
+      "Google Analytics",
+      "Advanced SEO setup",
+      "Speed optimization",
+      "Security optimization",
+      "Call-to-action sections",
+      "Website training/hand-over"
+    ]
+  },
+  premium: {
+    title: "Premium Website",
+    price: "₦600,000+",
+    desc: "For businesses that need advanced/custom functionality.",
+    includesLabel: "Everything in Standard, plus",
+    items: [
+      "Fully custom design",
+      "Advanced animations/interactions",
+      "Advanced SEO",
+      "Booking/appointment system",
+      "Payment integration",
+      "Membership/user accounts",
+      "Advanced forms & automation",
+      "API/third-party integrations",
+      "Custom functionality",
+      "Advanced analytics/tracking",
+      "Advanced performance optimization",
+      "Enhanced security",
+      "Ongoing support & maintenance"
+    ]
+  }
+};
+
+function openPricing(key){
+  const data = pricingData[key];
+  document.getElementById('modalUrl').textContent = 'pricing/' + key;
+  document.getElementById('modalKicker').textContent = key;
+  document.getElementById('modalTitle').textContent = data.title;
+  document.getElementById('modalPrice').textContent = data.price;
+  document.getElementById('modalDesc').textContent = data.desc;
+  document.getElementById('modalIncludesLabel').textContent = data.includesLabel;
+  const list = document.getElementById('modalList');
+  list.innerHTML = '';
+  data.items.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = item;
+    list.appendChild(li);
+  });
+  const overlay = document.getElementById('pricingModal');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePricing(){
+  document.getElementById('pricingModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closePricing();
+});
+</script>
 </body>
 </html>
